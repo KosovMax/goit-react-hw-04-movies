@@ -1,0 +1,1 @@
+{"version":3,"sources":["views/NotFound/NotFound.js"],"names":["NotFound"],"mappings":"mMAEe,SAASA,IACpB,OACI","file":"static/js/7.5ebed2b9.chunk.js","sourcesContent":["\r\n\r\nexport default function NotFound(){\r\n    return (\r\n        <h1>404 - page not found</h1>\r\n    )\r\n}"],"sourceRoot":""}
