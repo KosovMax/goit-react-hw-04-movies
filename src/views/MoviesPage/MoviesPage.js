@@ -34,7 +34,7 @@ export default class MoviesPage extends Component{
                 <br/>
                 <SearchFrom onSearch={this.updateSearch} />
 
-                { results.length >= 0 && <MovieItems results={results} url="/movies" />}
+                { results.length >= 0 && <MovieItems results={results} />}
             </>
         )
     }

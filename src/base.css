@@ -56,6 +56,11 @@ header ul > li{
     margin: 6px 0;
 }
 
+.movieItems > li > a{
+    display: flex;
+    align-items: center;
+}
+
 .movieItems img{
     width: 80px;
     margin-right: 10px;

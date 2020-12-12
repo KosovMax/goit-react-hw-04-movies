@@ -24,7 +24,7 @@ export default class HomePage extends Component{
             <>
                 <h1>Trending today</h1>
 
-                { results.length >= 0 && <MovieItems results={results} url="/movies" />}
+                { results.length >= 0 && <MovieItems results={results} />}
                 
             </>
         )

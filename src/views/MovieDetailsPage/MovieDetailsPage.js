@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { Link, Route } from "react-router-dom";
+import routes from "../../routes";
 import { getMovie } from './../../services/api-movies';
 
 
@@ -42,19 +43,37 @@ export default class MovieDetailsPage extends Component{
         })
     }
 
+    handleGoBack = () => {
+        const { history, location } = this.props
+
+        // if(location.state && location.state.from)
+        //    return history.push(location.state.from);
+
+        // history.push(routes.home);
+
+        history.push(location?.state?.from || routes.home);
+
+    }
+
     render(){
         const { title, overview, genres, poster_path, vote_average, release_date } = this.state;
 
         const year = release_date.split('-')[0];
 
-        const {url} = this.props.match;
+        const { url } = this.props.match;
+        const { from } = this.props.location.state;
+
+        console.log(this.props.location);
 
         return (
             <>
-            <button type="button" onClick={this.props.history.goBack}>Go back</button>
+            <button type="button" onClick={this.handleGoBack}>Go back</button>
             <div className="flextwo">
                 <div>
-                    <img src={`//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`} alt={title} />
+                    {poster_path != null ?
+                        <img src={`//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`} alt={title} />
+                        : <img src={`https://dummyimage.com/220x330/2a2a2a/ffffff&text=No+image`} alt="No image" />
+                    }
                 </div>
                 <div>
                     <h1>{title} {year && `(${year})`}</h1>
@@ -73,12 +92,21 @@ export default class MovieDetailsPage extends Component{
             <div style={{ borderTop: "2px solid", borderBottom: "2px solid"}}>
                 <h3>Additional information</h3>
                 <ul>
-                    <li><Link to={`${url}/cast`}>Cast</Link></li>
-                    <li><Link to={`${url}/reviews`}>Reviews</Link></li>
+                    {/* <li><Link to={`${url}/cast`}>Cast</Link></li>
+                    <li><Link to={`${url}/reviews`}>Reviews</Link></li> */}
+
+                    <li><Link to={{
+                        pathname:`${url}/cast`,
+                        state:{from:from}
+                    }}>Cast</Link></li>
+                    <li><Link to={{
+                        pathname:`${url}/reviews`,
+                        state:{from:from}
+                    }}>Reviews</Link></li>
                 </ul>
             </div>
-            <Route path="/movies/:movieId/cast" component={Cast} />
-            <Route path="/movies/:movieId/reviews" component={Reviews} />
+            <Route path={routes.movieCast} component={Cast} />
+            <Route path={routes.movieReviews} component={Reviews} />
             </>
         )
     }
