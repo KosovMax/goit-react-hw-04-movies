@@ -3,12 +3,8 @@ import { Link, Route } from "react-router-dom";
 import routes from "../../routes";
 import { getMovie } from './../../services/api-movies';
 
-
-
-import {
-    Cast,
-    Reviews,
-} from './../../views';
+import Cast from './../../views/Cast';
+import Reviews from './../../views/Reviews';
 
 export default class MovieDetailsPage extends Component{
 
@@ -70,10 +66,11 @@ export default class MovieDetailsPage extends Component{
             <button type="button" onClick={this.handleGoBack}>Go back</button>
             <div className="flextwo">
                 <div>
-                    {poster_path != null ?
+                    <img src={`//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`} alt={title} />
+                    {/* {poster_path != null ?
                         <img src={`//image.tmdb.org/t/p/w220_and_h330_face/${poster_path}`} alt={title} />
                         : <img src={`https://dummyimage.com/220x330/2a2a2a/ffffff&text=No+image`} alt="No image" />
-                    }
+                    } */}
                 </div>
                 <div>
                     <h1>{title} {year && `(${year})`}</h1>

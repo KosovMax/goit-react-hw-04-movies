@@ -4,7 +4,7 @@ import routes from "./routes";
 import AppBar from './components/AppBar';
 import Loader from './components/Loader';
 
-import { NotFound } from './views';
+import NotFound  from './views/NotFound';
 
 const HomePage = lazy(() => import('./views/HomePage' /* webpackChunkName: home-page" */))
 const MoviesPage = lazy(() => import('./views/MoviesPage' /* webpackChunkName: "movies-page" */))

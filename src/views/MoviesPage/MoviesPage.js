@@ -4,15 +4,28 @@ import SearchFrom from './../../components/SearchFrom';
 import MovieItems from './../../components/MovieItems';
 
 import { searchMovie } from './../../services/api-movies'
+import { withRouter } from 'react-router-dom';
 
-export default class MoviesPage extends Component{
+class MoviesPage extends Component{
 
     state = {
-        results:[]
+        results:[],
+        currentQuery:''
     }
 
     componentDidMount = () =>{
         this.updateSearchMovie();
+    }
+
+    componentDidUpdate = (prevProps, prevState) =>{
+        const { query } = queryString.parse(this.props.location.search);
+        const { currentQuery} = this.state;
+
+
+        if( currentQuery !== query ){
+            this.setState({currentQuery:query})
+            this.updateSearchMovie();
+        }
     }
 
     updateSearchMovie = () =>{
@@ -21,7 +34,7 @@ export default class MoviesPage extends Component{
         if(query)
             searchMovie(query)
             .then(results => {
-                this.setState({results})
+                this.setState({results:results})
             })
     }
 
@@ -32,10 +45,12 @@ export default class MoviesPage extends Component{
         return (
             <>
                 <br/>
-                <SearchFrom onSearch={this.updateSearch} />
+                <SearchFrom {...this.props} />
 
                 { results.length >= 0 && <MovieItems results={results} />}
             </>
         )
     }
 }
+
+export default withRouter(MoviesPage)

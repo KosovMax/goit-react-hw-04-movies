@@ -11,10 +11,11 @@ export default class HomePage extends Component{
     }
     
     componentDidMount = () =>{
-        getTrending({timeWindow:"day"}).then(results => {
-            // console.log(results);
+        getTrending({timeWindow:"day"})
+        .then(results => {
             this.setState({results})
         })
+        .catch(err => console.log('Error', err))
     }
 
     render(){
